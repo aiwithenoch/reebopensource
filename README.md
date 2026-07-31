@@ -92,10 +92,6 @@ Apps signed with a free Apple ID **stop opening after 7 days**. Nothing is broke
 - Xcode 16+
 - iPhone with a microphone (the Simulator can't do speech input)
 
-## Prompts
-
-The exact prompts used to build this — typos and all — are in [PROMPTS.md](PROMPTS.md). They're unedited on purpose: you don't need clean prompts, you need clear intent and honest feedback about what's broken.
-
 ## Contributing
 
 Contributions are genuinely wanted, whether that is a fix, a feature, better docs, or just a bug report from a device I do not own.

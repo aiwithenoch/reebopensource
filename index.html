@@ -6,7 +6,7 @@
 <title>Reeb — the teleprompter that scrolls when you talk</title>
 <meta name="description" content="An open source iOS teleprompter that scrolls because you're talking, not on a timer. On-device speech recognition, built-in camera, no subscription. Built with Claude Code by Enoch Ansong.">
 <meta property="og:title" content="Reeb — the teleprompter that scrolls when you talk">
-<meta property="og:description" content="Open source iOS teleprompter. Voice tracked scrolling, fully offline, no subscription. Code, architecture and prompts included.">
+<meta property="og:description" content="Open source iOS teleprompter. Voice tracked scrolling, fully offline, no subscription. Full source and architecture write-up included.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#FFC933">
@@ -354,8 +354,16 @@
     overflow-x: auto; margin-top: 1.5rem;
   }
   pre .c { color: #6C7A88; }
-  .note { border-radius: 16px; padding: 1.1rem 1.25rem; font-size: .93rem; margin-top: var(--gap); background: var(--page); color: var(--text-soft); border: 1px solid var(--line); }
+  .note { border-radius: 16px; padding: 1.1rem 1.25rem; font-size: .93rem; margin-top: 1.75rem; background: var(--page); color: var(--text-soft); border: 1px solid var(--line); }
   .note b { color: var(--text); }
+
+  .closing .cta-row { margin-top: 1.7rem; }
+  /* On the light card the dark button reads; on the dark card it would vanish. */
+  @media (prefers-color-scheme: dark) {
+    .card.plain .btn.solid { background: var(--cue); color: #17130A; }
+  }
+  :root[data-theme="dark"] .card.plain .btn.solid { background: var(--cue); color: #17130A; }
+  :root[data-theme="light"] .card.plain .btn.solid { background: #0B0E12; color: #fff; }
 
   /* ---------------- footer ---------------- */
 
@@ -401,7 +409,6 @@
     </a>
     <div class="nav-links">
       <a href="#how">How it works</a>
-      <a href="#build">Build it</a>
       <a href="https://github.com/aiwithenoch/reebopensource">GitHub</a>
     </div>
   </nav>
@@ -544,51 +551,18 @@
     </div>
   </section>
 
-  <!-- PROMPTS -->
-  <section class="card dark">
-    <p class="kicker">How it was built</p>
-    <h2>Prompts, unedited</h2>
-    <p class="lede">Typed in a hurry, typos intact. You do not need clean prompts. You need clear intent and honest feedback about what is broken.</p>
-
-    <div class="quotes">
-      <div class="quote">
-        <q>can u build an app and intsall on my iphone for me? a teleprompter that uses voice regcog</q>
-        <span class="got">The whole app, signed and installed on the phone</span>
-      </div>
-      <div class="quote">
-        <q>The speech recognition automatically ends at a point… also when there are other words in the script that look the same, it will jump to those words</q>
-        <span class="got">The watchdog, and the two word rule</span>
-      </div>
-      <div class="quote">
-        <q>AND IT SHOULD BE LIGHTINING FASTTTTTTTTTTTT MAN</q>
-        <span class="got">Release build, cached layout, scroll cut to 150 ms</span>
-      </div>
-      <div class="quote">
-        <q>if i open cam it vanishing i want to use it while i am shooting</q>
-        <span class="got">A full camera recorder built into the app</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- BUILD -->
-  <section class="card plain" id="build">
-    <p class="kicker">Get it running</p>
-    <h2>Build it yourself</h2>
-    <p class="lede">You need a Mac with Xcode, an iPhone and a cable. A free Apple ID is enough. The paid developer program is not required.</p>
-
-<pre>git clone https://github.com/aiwithenoch/reebopensource.git
-cd reebopensource
-./scripts/download-model.sh   <span class="c"># fetches the Whisper model</span>
-open Reeb.xcodeproj</pre>
-
-    <div class="note">
-      <b>Then in Xcode:</b> pick your device, set your own team under Signing and Capabilities, change the bundle identifier to something unique, and hit Run. On the phone, turn on Developer Mode under Settings, Privacy and Security, then restart.
+  <!-- CLOSING -->
+  <section class="card plain closing" id="get">
+    <h2>Take it and build your own</h2>
+    <p class="lede">Every line is on GitHub, along with the setup steps and the full architecture write-up. MIT licensed, so change whatever you want and ship it.</p>
+    <div class="cta-row">
+      <a class="btn solid" href="https://github.com/aiwithenoch/reebopensource">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        Get the code
+      </a>
     </div>
     <div class="note">
-      <b>The day 8 surprise:</b> apps signed with a free Apple ID stop opening after seven days. Nothing is broken. Plug the phone in and reinstall, which takes about half a minute. A paid developer account extends it to a year.
-    </div>
-    <div class="note">
-      <b>Honest status:</b> Reeb is fully functional but not production ready. No tests, no App Store review, and it has only ever run on one device. Build it at your own risk and read the source first, since it uses your microphone, camera and photo library. Contributors are welcome, and a free App Store release is planned.
+      <b>Honest status:</b> Reeb is fully functional but not production ready. No tests, no App Store review, and it has only ever run on one device. Build it at your own risk and read the source first, since it uses your microphone, camera and photo library. You will need a Mac to build it. Contributors are welcome, and a free App Store release is planned.
     </div>
   </section>
 

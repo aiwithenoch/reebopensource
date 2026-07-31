@@ -384,32 +384,49 @@
 
   .wl-modal {
     position: relative;
-    width: min(30rem, 100%);
-    max-height: min(46rem, 92vh);
-    /* Fixed light surface: the embedded form always renders dark text, so it
-       must not sit on a dark card in dark mode. */
-    background: #FFFFFF;
-    border: 1px solid rgba(0,0,0,.08);
+    width: min(24rem, 100%);
+    background: var(--card);
+    border: 1px solid var(--line);
     border-radius: 22px;
+    padding: 2rem 1.75rem 1.5rem;
     box-shadow: 0 24px 70px rgba(0,0,0,.4);
-    overflow: hidden;
-    display: flex; flex-direction: column;
+    display: flex; flex-direction: column; align-items: flex-start; gap: .75rem;
     transform: translateY(14px) scale(.985);
     transition: transform .3s cubic-bezier(.22,.61,.36,1);
   }
   .wl-backdrop[data-open="true"] .wl-modal { transform: none; }
 
   .wl-close {
-    position: absolute; top: .7rem; right: .7rem; z-index: 2;
+    position: absolute; top: .7rem; right: .7rem;
     width: 2rem; height: 2rem; border-radius: 50%;
     border: 0; cursor: pointer;
-    background: #EEF1F4; color: #4C5661;
+    background: var(--page); color: var(--text-soft);
     font-size: 1rem; line-height: 1;
     display: grid; place-items: center;
   }
-  .wl-close:hover { color: #0B0E12; }
+  .wl-close:hover { color: var(--text); }
 
-  .wl-modal iframe { width: 100%; flex: 1; min-height: 30rem; border: 0; display: block; background: #FFFFFF; }
+  .wl-tag {
+    font-family: var(--f-mono); font-size: .62rem; letter-spacing: .13em; text-transform: uppercase;
+    color: #8A6A00; background: var(--amber-lo);
+    border-radius: 999px; padding: .34rem .7rem;
+  }
+  @media (prefers-color-scheme: dark) { .wl-tag { background: rgba(255,201,51,.16); color: var(--cue); } }
+  :root[data-theme="dark"] .wl-tag { background: rgba(255,201,51,.16); color: var(--cue); }
+  :root[data-theme="light"] .wl-tag { background: var(--amber-lo); color: #8A6A00; }
+
+  .wl-modal h3 {
+    font-family: var(--f-display);
+    font-size: 1.7rem; font-weight: 800; letter-spacing: -.03em; line-height: 1.08;
+  }
+  .wl-modal p { font-size: .96rem; line-height: 1.55; color: var(--text-soft); }
+  .wl-modal .btn { margin-top: .5rem; width: 100%; justify-content: center; }
+  .wl-later {
+    background: none; border: 0; cursor: pointer;
+    font-family: var(--f-body); font-size: .87rem; color: var(--text-dim);
+    padding: .4rem 0; align-self: center;
+  }
+  .wl-later:hover { color: var(--text-soft); }
 
   button.wl-open { cursor: pointer; font-family: var(--f-body); }
   a.wl-open { cursor: pointer; }
@@ -631,10 +648,14 @@
   </section>
 
   <!-- WAITLIST -->
-  <div class="wl-backdrop" id="wl" data-open="false" role="dialog" aria-modal="true" aria-label="Get Reeb when it launches">
+  <div class="wl-backdrop" id="wl" data-open="false" role="dialog" aria-modal="true" aria-labelledby="wl-title">
     <div class="wl-modal">
       <button class="wl-close" id="wl-close" type="button" aria-label="Close">✕</button>
-      <iframe id="wl-frame" data-src="https://tally.so/embed/44RV05?alignLeft=1&amp;hideTitle=0&amp;transparentBackground=1&amp;dynamicHeight=1" title="Get Reeb when it launches" loading="lazy"></iframe>
+      <span class="wl-tag">Launching soon</span>
+      <h3 id="wl-title">Be the first Reeber</h3>
+      <p>Reeb is nearly ready. Leave your details and you will get the link the day it opens up, before anyone else.</p>
+      <a class="btn solid" href="https://tally.so/r/44RV05">Count me in</a>
+      <button class="wl-later" id="wl-later" type="button">Maybe later</button>
     </div>
   </div>
 
@@ -745,9 +766,9 @@
      and can always be reopened from the Get notified buttons. */
   (function () {
     var wl = document.getElementById("wl");
-    var frame = document.getElementById("wl-frame");
     var closeBtn = document.getElementById("wl-close");
-    if (!wl || !frame) return;
+    var laterBtn = document.getElementById("wl-later");
+    if (!wl || !closeBtn) return;
 
     var KEY = "reeb.waitlist.dismissed";
     var THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
@@ -762,8 +783,6 @@
 
     function open() {
       if (wl.dataset.open === "true") return;
-      // Load the form only when it is first needed.
-      if (!frame.src) frame.src = frame.dataset.src;
       lastFocus = document.activeElement;
       wl.dataset.open = "true";
       closeBtn.focus();
@@ -776,6 +795,7 @@
     }
 
     closeBtn.addEventListener("click", close);
+    if (laterBtn) laterBtn.addEventListener("click", close);
     wl.addEventListener("click", function (e) { if (e.target === wl) close(); });
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && wl.dataset.open === "true") close();

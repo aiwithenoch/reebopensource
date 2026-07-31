@@ -357,6 +357,45 @@
   .note { border-radius: 16px; padding: 1.1rem 1.25rem; font-size: .93rem; margin-top: 1.75rem; background: var(--page); color: var(--text-soft); border: 1px solid var(--line); }
   .note b { color: var(--text); }
 
+  /* story */
+  .story .prose { display: flex; flex-direction: column; gap: 1.05rem; margin-top: 1.6rem; }
+  .story .prose p { font-size: 1.06rem; line-height: 1.68; color: var(--text-soft); max-width: 60ch; }
+  .story .pull {
+    font-family: var(--f-display);
+    font-size: clamp(1.25rem, 2.9vw, 1.65rem);
+    line-height: 1.32; letter-spacing: -.022em; font-weight: 750;
+    color: var(--text) !important;
+    border-left: 3px solid var(--cue-line, #B98900);
+    padding: .2rem 0 .2rem 1.15rem;
+    margin: .5rem 0;
+  }
+  @media (prefers-color-scheme: dark) { .story .pull { border-left-color: var(--cue); } }
+  :root[data-theme="dark"] .story .pull { border-left-color: var(--cue); }
+  :root[data-theme="light"] .story .pull { border-left-color: #B98900; }
+  .story .sig {
+    font-family: var(--f-mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--text-dim); margin-top: 1.9rem;
+  }
+
+  /* walls */
+  .walls { display: flex; flex-direction: column; gap: var(--gap); margin-top: 2.1rem; }
+  .wall {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 18px; padding: 1.3rem 1.4rem;
+    display: flex; flex-direction: column; gap: .55rem;
+  }
+  .wall .sym {
+    font-family: var(--f-mono); font-size: .62rem; letter-spacing: .11em; text-transform: uppercase;
+    color: #FF6B5E; background: rgba(255,107,94,.13);
+    border-radius: 999px; padding: .34rem .7rem; align-self: start;
+  }
+  .wall h3 { color: #EDF1F5; }
+  .wall p { font-size: .95rem; line-height: 1.6; color: #AAB5C0; max-width: 62ch; }
+  .wall p b { color: var(--cue); font-weight: 600; }
+  .wall code { font-family: var(--f-mono); font-size: .86em; background: rgba(255,255,255,.08); padding: .12em .38em; border-radius: 4px; color: #DCE4EC; }
+  @media (max-width: 720px) { .wall { padding: 1.15rem 1.2rem; } }
+
   .closing .cta-row { margin-top: 1.7rem; }
   /* On the light card the dark button reads; on the dark card it would vanish. */
   @media (prefers-color-scheme: dark) {
@@ -444,6 +483,20 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="card plain story">
+    <p class="kicker">Why this exists</p>
+    <h2>It is text moving<br>on a screen</h2>
+    <div class="prose">
+      <p>I wanted to record a video and realised I did not have a teleprompter on my phone. So I went to the App Store, and every single one of them wanted a subscription. Monthly. To scroll my own words down a screen.</p>
+      <p>I am a creator starting out. I do not have that budget. And something about it got to me, because this is not a hard problem. Yet there I was, locked out of it, being asked to pay rent on my own script.</p>
+      <p>So I opened Claude Code and asked it to build me one. Not a mockup. A real app, on my iPhone, the same day.</p>
+      <p class="pull">The gap between "I wish this existed" and "it exists" has collapsed. Most people have not noticed yet.</p>
+      <p>Everything below is how it works and what it cost to get there, including the parts that broke. It is all open source. Take it, build your own, make it better than mine.</p>
+    </div>
+    <p class="sig">Enoch Ansong, Accra</p>
   </section>
 
   <!-- HOW IT FOLLOWS -->
@@ -547,6 +600,33 @@
         <span class="file">AudioRingStore.swift</span>
         <h3>The shared buffer</h3>
         <p>A rolling eight seconds of audio at 16 kHz mono, written from the audio thread and read from the main thread.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WALLS -->
+  <section class="card dark">
+    <p class="kicker">How it was built</p>
+    <h2>Three things broke</h2>
+    <p class="lede">None of this came out working. These are the walls that took the longest, written down because the next person building something like this will hit the same ones.</p>
+
+    <div class="walls">
+      <div class="wall">
+        <span class="sym">The floating window was black</span>
+        <h3>A clock nobody started</h3>
+        <p>The overlay that floats above other apps is a Picture in Picture window fed hand drawn video frames. It accepted every frame and displayed none of them, so the window was simply black. <b>The cause:</b> an <code>AVSampleBufferDisplayLayer</code> only renders if its <code>controlTimebase</code> exists and is actually running. Create the timebase, set the rate to 1.0, stamp each frame with its time, and the picture appears.</p>
+      </div>
+
+      <div class="wall">
+        <span class="sym">Tracking died and never came back</span>
+        <h3>Saved by nothing</h3>
+        <p>One hiccup and it stopped following forever. <b>The cause:</b> any mid session microphone failure put the tracker into an error state, and the watchdog was only written to revive trackers that were still listening. The dead state was unreachable by the thing designed to rescue it. Now a failure after a successful start stays recoverable, and the watchdog retries indefinitely.</p>
+      </div>
+
+      <div class="wall">
+        <span class="sym">You cannot float over Apple's Camera</span>
+        <h3>The wall that changed the app</h3>
+        <p>The original plan was a script hovering over the stock Camera app. iOS will not allow it. Opening Camera claims the microphone, which tears down the background audio session, which suspends the app and the floating window with it. And once recording starts, Camera holds the microphone exclusively, so nothing else can listen. <b>The fix was to own the whole pipeline:</b> put the camera inside Reeb, run one capture session, and fork every audio buffer two ways, into the video file and into speech recognition. No contention, because there is only one app.</p>
       </div>
     </div>
   </section>

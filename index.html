@@ -98,8 +98,14 @@
 
   .card {
     border-radius: var(--r);
-    padding: clamp(1.75rem, 4.5vw, 3.5rem);
+    padding: clamp(1.5rem, 4.5vw, 3.5rem);
     overflow: hidden;
+  }
+  @media (max-width: 720px) {
+    :root { --r: 22px; }
+    .card { padding: 1.6rem 1.25rem; }
+    .tile { padding: 1.3rem 1.2rem; }
+    body { font-size: 16px; }
   }
   .card.amber { background: linear-gradient(168deg, #FFD966 0%, #FFC933 46%, #FFB020 100%); color: #17130A; }
   .card.dark  { background: var(--ink); color: #EDF1F5; }
@@ -219,17 +225,51 @@
   .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
   @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
 
-  .rules { display: flex; flex-direction: column; gap: .55rem; margin-top: 1.9rem; }
+  .rules { display: flex; flex-direction: column; gap: .6rem; margin-top: 2.1rem; }
   .rule {
-    display: grid; grid-template-columns: auto 1fr; gap: .95rem; align-items: baseline;
-    background: rgba(255,255,255,.055); border-radius: 14px; padding: .85rem 1.05rem;
+    display: grid;
+    grid-template-columns: 9.5rem minmax(0, 1fr);
+    column-gap: 1.4rem; row-gap: .85rem;
+    align-items: start;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 18px;
+    padding: 1.15rem 1.3rem;
   }
   .rule b {
-    font-family: var(--f-mono); font-size: .63rem; letter-spacing: .1em; text-transform: uppercase;
-    color: var(--cue); white-space: nowrap;
+    grid-column: 1;
+    justify-self: start;
+    font-family: var(--f-mono); font-size: .62rem; letter-spacing: .11em; text-transform: uppercase;
+    color: var(--cue); background: rgba(255,212,38,.13);
+    border-radius: 999px; padding: .34rem .7rem; white-space: nowrap;
   }
-  .rule span { font-size: .92rem; color: #A9B4BF; }
-  .rule span em { font-style: normal; color: #EDF1F5; font-weight: 600; }
+  .rule > span { grid-column: 2; font-size: .95rem; line-height: 1.55; color: #AAB5C0; }
+  .rule > span em { font-style: normal; color: #EDF1F5; font-weight: 600; }
+
+  /* miniature script strip showing what each rule does */
+  .track {
+    grid-column: 1 / -1;
+    display: flex; flex-wrap: wrap; align-items: center; gap: .3rem;
+    padding-top: .2rem;
+  }
+  .track i {
+    font-family: var(--f-display); font-style: normal; font-weight: 700;
+    font-size: .82rem; letter-spacing: -.01em;
+    color: #E4EAF0; padding: .22rem .5rem; border-radius: 7px;
+    background: rgba(255,255,255,.05);
+  }
+  .track i.was { color: #4A5561; background: transparent; }
+  .track i.now { color: #17130A; background: var(--cue); }
+  .track u {
+    font-family: var(--f-mono); font-size: .62rem; text-decoration: none;
+    color: #6E7A87; letter-spacing: .08em; padding: 0 .1rem;
+  }
+
+  @media (max-width: 720px) {
+    .rule { grid-template-columns: minmax(0, 1fr); row-gap: .6rem; padding: 1.1rem 1.15rem; }
+    .rule b, .rule > span { grid-column: 1; }
+    .track i { font-size: .78rem; padding: .2rem .42rem; }
+  }
 
   /* ---------------- feature grid ---------------- */
 
@@ -251,23 +291,59 @@
 
   /* ---------------- stack / architecture ---------------- */
 
-  .layers { display: flex; flex-direction: column; gap: .5rem; margin-top: 1.75rem; }
-  .layer { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 1.1rem 1.25rem; }
-  .layer .file { font-family: var(--f-mono); font-size: .69rem; letter-spacing: .04em; color: #B98900; }
+  .layers { display: flex; flex-direction: column; margin-top: 2rem; }
+  .layer {
+    background: var(--card); border: 1px solid var(--line); border-radius: 18px;
+    padding: 1.25rem 1.4rem;
+    display: grid; grid-template-columns: 2rem minmax(0, 1fr); column-gap: 1.1rem; row-gap: .25rem;
+  }
+  .layer .step {
+    grid-row: 1 / span 3;
+    width: 1.85rem; height: 1.85rem; border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: var(--f-mono); font-size: .74rem; font-weight: 600;
+    background: var(--page); color: var(--text-soft); border: 1px solid var(--line);
+    margin-top: .15rem;
+  }
+  .layer .file, .layer h3, .layer p { grid-column: 2; }
+  .layer .file { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .03em; color: #B98900; word-break: break-word; }
+  @media (max-width: 720px) {
+    .layer { grid-template-columns: minmax(0, 1fr); row-gap: .35rem; padding: 1.15rem 1.2rem; }
+    .layer .step { grid-row: auto; grid-column: 1; margin-bottom: .25rem; }
+    .layer .file, .layer h3, .layer p { grid-column: 1; }
+  }
   @media (prefers-color-scheme: dark) { .layer .file { color: var(--cue); } }
   :root[data-theme="dark"] .layer .file { color: var(--cue); }
   :root[data-theme="light"] .layer .file { color: #B98900; }
-  .layer h3 { margin: .3rem 0 .25rem; }
+  .layer h3 { margin: .28rem 0 .2rem; }
   .layer p { font-size: .93rem; color: var(--text-soft); }
-  .arrow { text-align: center; font-family: var(--f-mono); font-size: .8rem; color: var(--text-dim); }
+  .arrow { height: 1.5rem; position: relative; }
+  .arrow::before {
+    content: ""; position: absolute; left: 2.4rem; top: 0; bottom: 0;
+    width: 2px; background: var(--line); border-radius: 1px;
+  }
+  @media (max-width: 720px) { .arrow::before { left: 1.85rem; } }
 
   /* ---------------- prompts ---------------- */
 
-  .quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: var(--gap); margin-top: 1.9rem; }
-  .quote { background: rgba(255,255,255,.06); border-radius: 18px; padding: 1.25rem 1.3rem; display: flex; flex-direction: column; gap: .7rem; }
-  .quote q { font-family: var(--f-mono); font-size: .84rem; line-height: 1.55; color: #EDF1F5; }
-  .quote .got { font-size: .84rem; color: #98A4B0; }
-  .quote .got::before { content: "\2192  "; color: var(--cue); }
+  .quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: var(--gap); margin-top: 2.1rem; }
+  .quote { display: flex; flex-direction: column; gap: .8rem; }
+  .quote q {
+    font-family: var(--f-mono); font-size: .845rem; line-height: 1.6; color: #EDF1F5;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 18px 18px 18px 5px;
+    padding: 1.05rem 1.15rem;
+    quotes: none;
+  }
+  .quote .got {
+    display: flex; gap: .55rem; align-items: baseline;
+    font-size: .875rem; line-height: 1.5; color: #9AA6B2; padding-left: .3rem;
+  }
+  .quote .got::before { content: "\2192"; color: var(--cue); font-weight: 700; flex: none; }
+  @media (max-width: 720px) {
+    .quote q { padding: .95rem 1.05rem; font-size: .82rem; }
+  }
 
   /* ---------------- build ---------------- */
 
@@ -370,10 +446,37 @@
     <p class="lede">Timer based prompters make you chase the text. Reeb listens to what you actually said and moves the highlight to match. The hard part is not hearing you, it is knowing where you are when you go off script.</p>
 
     <div class="rules">
-      <div class="rule"><b>Next word</b><span>Matches on <em>one</em> word. The common case, and it is instant.</span></div>
-      <div class="rule"><b>Skip one</b><span>Also one word. Absorbs a mumble or a word the recognizer dropped.</span></div>
-      <div class="rule"><b>Jump ahead</b><span>Needs <em>two words in a row</em>, so a repeated "the" cannot drag you forward.</span></div>
-      <div class="rule"><b>Lost you</b><span>After six missed words it searches the <em>whole script</em> for the last three words you said, and jumps to where you actually are.</span></div>
+      <div class="rule">
+        <b>Next word</b>
+        <span>Matches on <em>one</em> word. This is the common case, and it is instant.</span>
+        <div class="track" aria-hidden="true">
+          <i class="was">Reeb</i><i class="was">listens</i><i class="now">to</i><i>what</i><i>you</i><i>said</i>
+        </div>
+      </div>
+
+      <div class="rule">
+        <b>Skip one</b>
+        <span>Also one word. Absorbs a mumble, or a word the recognizer simply dropped.</span>
+        <div class="track" aria-hidden="true">
+          <i class="was">Reeb</i><i class="was">listens</i><i class="was">to</i><u>skipped</u><i class="now">what</i><i>you</i><i>said</i>
+        </div>
+      </div>
+
+      <div class="rule">
+        <b>Jump ahead</b>
+        <span>Needs <em>two words in a row</em> to match, so a repeated "the" cannot drag you forward.</span>
+        <div class="track" aria-hidden="true">
+          <i class="was">the</i><i>cat</i><i>sat</i><i>on</i><u>said "the mat" →</u><i class="was">the</i><i class="now">mat</i>
+        </div>
+      </div>
+
+      <div class="rule">
+        <b>Lost you</b>
+        <span>After six missed words it searches the <em>whole script</em> for the last three words you said, and jumps to where you actually are.</span>
+        <div class="track" aria-hidden="true">
+          <i class="was">…</i><u>you went off script →</u><i class="was">picking</i><i class="was">up</i><i class="now">here</i>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -419,18 +522,21 @@
 
     <div class="layers">
       <div class="layer">
+        <span class="step">1</span>
         <span class="file">SpeechTracker.swift · Apple SFSpeechRecognizer</span>
         <h3>The fast ear</h3>
         <p>Streams words the instant you say them and drives the scroll. Restarts itself whenever iOS ends a phrase, with a watchdog that revives it if the mic dies.</p>
       </div>
-      <div class="arrow">↓</div>
+      <div class="arrow" aria-hidden="true"></div>
       <div class="layer">
+        <span class="step">2</span>
         <span class="file">WhisperVerifier.swift · whisper.cpp, ggml-tiny.en</span>
         <h3>The careful ear</h3>
         <p>Open source Whisper re-listens to the last few seconds every three seconds and nudges the position if the fast ear missed something. Needs three words in a row to agree, so noise cannot move the script.</p>
       </div>
-      <div class="arrow">↓</div>
+      <div class="arrow" aria-hidden="true"></div>
       <div class="layer">
+        <span class="step">3</span>
         <span class="file">AudioRingStore.swift</span>
         <h3>The shared buffer</h3>
         <p>A rolling eight seconds of audio at 16 kHz mono, written from the audio thread and read from the main thread.</p>
@@ -506,6 +612,10 @@ open Reeb.xcodeproj</pre>
       <a href="https://x.com/aiwithenoch">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.2 2h3.3l-7.2 8.3L23 22h-6.7l-5.2-6.8L5.1 22H1.8l7.7-8.8L1 2h6.8l4.7 6.2L18.2 2Zm-1.2 18h1.8L7.1 3.9H5.2L17 20Z"/></svg>
         X
+      </a>
+      <a href="https://www.linkedin.com/in/blacctbwoy/">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.36-1.85c3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0Z"/></svg>
+        LinkedIn
       </a>
       <a href="https://www.facebook.com/aiwithenoch">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12Z"/></svg>

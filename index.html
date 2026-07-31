@@ -368,6 +368,58 @@
   .note b { color: var(--text); }
 
   .closing .cta-row { margin-top: 1.7rem; }
+
+  /* ---------------- waitlist ---------------- */
+
+  .wl-backdrop {
+    position: fixed; inset: 0; z-index: 90;
+    background: rgba(6,9,12,.62);
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    display: grid; place-items: center;
+    padding: 1rem;
+    opacity: 0; pointer-events: none;
+    transition: opacity .28s ease;
+  }
+  .wl-backdrop[data-open="true"] { opacity: 1; pointer-events: auto; }
+
+  .wl-modal {
+    position: relative;
+    width: min(30rem, 100%);
+    max-height: min(46rem, 92vh);
+    /* Fixed light surface: the embedded form always renders dark text, so it
+       must not sit on a dark card in dark mode. */
+    background: #FFFFFF;
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: 22px;
+    box-shadow: 0 24px 70px rgba(0,0,0,.4);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transform: translateY(14px) scale(.985);
+    transition: transform .3s cubic-bezier(.22,.61,.36,1);
+  }
+  .wl-backdrop[data-open="true"] .wl-modal { transform: none; }
+
+  .wl-close {
+    position: absolute; top: .7rem; right: .7rem; z-index: 2;
+    width: 2rem; height: 2rem; border-radius: 50%;
+    border: 0; cursor: pointer;
+    background: #EEF1F4; color: #4C5661;
+    font-size: 1rem; line-height: 1;
+    display: grid; place-items: center;
+  }
+  .wl-close:hover { color: #0B0E12; }
+
+  .wl-modal iframe { width: 100%; flex: 1; min-height: 30rem; border: 0; display: block; background: #FFFFFF; }
+
+  button.wl-open { cursor: pointer; font-family: var(--f-body); }
+  a.wl-open { cursor: pointer; }
+  /* The ghost button is styled for the amber hero; on a plain card it needs
+     the page's own ink rather than the hero's. */
+  .card.plain .btn.ghost { color: var(--text); border-color: var(--line); background: transparent; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wl-backdrop, .wl-modal { transition: none; }
+  }
   /* On the light card the dark button reads; on the dark card it would vanish. */
   @media (prefers-color-scheme: dark) {
     .card.plain .btn.solid { background: var(--cue); color: #17130A; }
@@ -420,6 +472,7 @@
     <div class="nav-links">
       <a href="#how">How it works</a>
       <a href="https://github.com/aiwithenoch/reebopensource">GitHub</a>
+      <a href="#" class="wl-open" role="button">Get notified</a>
     </div>
   </nav>
 
@@ -570,11 +623,20 @@
         <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
         Get the code
       </a>
+      <button class="btn ghost wl-open" type="button">Get notified when it launches</button>
     </div>
     <div class="note">
       <b>Honest status:</b> Reeb is fully functional but not production ready. No tests, no App Store review, and it has only ever run on one device. Build it at your own risk and read the source first, since it uses your microphone, camera and photo library. You will need a Mac to build it. Contributors are welcome, and a free App Store release is planned.
     </div>
   </section>
+
+  <!-- WAITLIST -->
+  <div class="wl-backdrop" id="wl" data-open="false" role="dialog" aria-modal="true" aria-label="Get Reeb when it launches">
+    <div class="wl-modal">
+      <button class="wl-close" id="wl-close" type="button" aria-label="Close">✕</button>
+      <iframe id="wl-frame" data-src="https://tally.so/embed/44RV05?alignLeft=1&amp;hideTitle=0&amp;transparentBackground=1&amp;dynamicHeight=1" title="Get Reeb when it launches" loading="lazy"></iframe>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer>
@@ -677,6 +739,54 @@
       if (pos > nodes.length) { pos = 0; wait = 1600; }
       setTimeout(step, wait);
     })();
+  })();
+
+  /* Waitlist popup. Opens once per visitor, remembers a dismissal for 30 days,
+     and can always be reopened from the Get notified buttons. */
+  (function () {
+    var wl = document.getElementById("wl");
+    var frame = document.getElementById("wl-frame");
+    var closeBtn = document.getElementById("wl-close");
+    if (!wl || !frame) return;
+
+    var KEY = "reeb.waitlist.dismissed";
+    var THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
+    var lastFocus = null;
+
+    function dismissed() {
+      try {
+        var at = Number(localStorage.getItem(KEY));
+        return at && Date.now() - at < THIRTY_DAYS;
+      } catch (e) { return false; }
+    }
+
+    function open() {
+      if (wl.dataset.open === "true") return;
+      // Load the form only when it is first needed.
+      if (!frame.src) frame.src = frame.dataset.src;
+      lastFocus = document.activeElement;
+      wl.dataset.open = "true";
+      closeBtn.focus();
+    }
+
+    function close() {
+      wl.dataset.open = "false";
+      try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {}
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    closeBtn.addEventListener("click", close);
+    wl.addEventListener("click", function (e) { if (e.target === wl) close(); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && wl.dataset.open === "true") close();
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll(".wl-open"), function (el) {
+      el.addEventListener("click", function (e) { e.preventDefault(); open(); });
+    });
+
+    // Give people a moment with the page before asking for an email.
+    if (!dismissed()) setTimeout(open, 9000);
   })();
 </script>
 </body>

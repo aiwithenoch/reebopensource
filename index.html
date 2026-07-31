@@ -369,6 +369,20 @@
 
   .closing .cta-row { margin-top: 1.7rem; }
 
+  .support {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 1.1rem;
+    margin-top: 2rem; padding: 1.35rem 1.4rem;
+    background: var(--page); border: 1px solid var(--line); border-radius: 18px;
+  }
+  .support p { font-size: .93rem; color: var(--text-soft); margin-top: .25rem; max-width: 46ch; }
+  .support p strong { color: var(--text); font-weight: 650; }
+  .support .btn { flex: none; }
+  @media (max-width: 560px) {
+    .support { flex-direction: column; align-items: stretch; }
+    .support .btn { justify-content: center; }
+  }
+
   /* ---------------- waitlist ---------------- */
 
   .wl-backdrop {
@@ -421,6 +435,11 @@
   }
   .wl-modal p { font-size: .96rem; line-height: 1.55; color: var(--text-soft); }
   .wl-modal .btn { margin-top: .75rem; width: 100%; justify-content: center; }
+  .wl-support {
+    font-size: .82rem !important; color: var(--text-dim) !important;
+    text-align: center; align-self: center; margin-top: .15rem;
+  }
+  .wl-support a { color: var(--text-soft); }
 
   button.wl-open { cursor: pointer; font-family: var(--f-body); }
   a.wl-open { cursor: pointer; }
@@ -636,6 +655,15 @@
       </a>
       <button class="btn ghost wl-open" type="button">Get notified when it launches</button>
     </div>
+    <div class="support">
+      <div>
+        <h3>Reeb stays free</h3>
+        <!-- Supporter count is maintained by hand; update it as it grows. -->
+        <p><strong>17 people</strong> have already chipped in. Support covers the Apple developer account and the App Store release, so it stays free for everyone.</p>
+      </div>
+      <a class="btn ghost" href="https://dodo.pe/reeb">Support Reeb</a>
+    </div>
+
     <div class="note">
       <b>Honest status:</b> Reeb is fully functional but not production ready. No tests, no App Store review, and it has only ever run on one device. Build it at your own risk and read the source first, since it uses your microphone, camera and photo library. You will need a Mac to build it. Contributors are welcome, and a free App Store release is planned.
     </div>
@@ -649,6 +677,7 @@
       <h3 id="wl-title">Be the first Reeber</h3>
       <p>Reeb is nearly ready. Leave your details and you will get the link the day it opens up, before anyone else.</p>
       <a class="btn solid" href="https://tally.so/r/44RV05">Count me in</a>
+      <p class="wl-support">Reeb is free and open source. <a href="https://dodo.pe/reeb">17 people have chipped in</a> to keep it that way.</p>
     </div>
   </div>
 

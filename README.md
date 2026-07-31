@@ -1,5 +1,9 @@
 # Reeb
 
+[![Support Reeb](https://img.shields.io/badge/💛_Support_Reeb-17_backers-FFC933?style=for-the-badge)](https://dodo.pe/reeb)
+[![License: MIT](https://img.shields.io/badge/License-MIT-0B0E12?style=for-the-badge)](LICENSE)
+[![Waitlist](https://img.shields.io/badge/Join_the_waitlist-Be_the_first_Reeber-1B8F4A?style=for-the-badge)](https://tally.so/r/44RV05)
+
 A teleprompter for iOS that scrolls **because you're talking** — not because a timer said so.
 
 Read, and the script moves. Pause, and it waits. Go off-script, and it holds your place until you come back. Speech recognition runs entirely on the phone: no account, no API key, no server, no subscription.
@@ -7,6 +11,11 @@ Read, and the script moves. Pause, and it waits. Go off-script, and it holds you
 Built with [Claude Code](https://claude.com/claude-code) in an afternoon. Open sourced so you can build your own.
 
 📱 [Demo on TikTok](https://www.tiktok.com/@aiwithenoch/video/7668759110187273490)
+
+> ### 💛 Reeb is free, and it stays free
+> **17 people have already chipped in.** Support goes straight toward the Apple developer account and the App Store release, so anyone can install it without a Mac.
+>
+> ### **→ [Support Reeb](https://dodo.pe/reeb)** · **[Join the waitlist](https://tally.so/r/44RV05)**
 
 ---
 
@@ -109,6 +118,12 @@ Contributions are genuinely wanted, whether that is a fix, a feature, better doc
 - Larger Whisper models as an option for users who want accuracy over speed
 - Multi-language recognition (the matcher normalizes with `isLetter`/`isNumber`, so it needs work for non-Latin scripts)
 - Tests for the word matcher in `SpeechTracker.swift`, which is the piece most worth protecting
+
+## Support this project
+
+Reeb is free and stays free. If it saves you time, [chip in here](https://dodo.pe/reeb) — 17 people already have. It covers the Apple developer account and the App Store release, which is what lets people install it without owning a Mac.
+
+Not able to? Starring the repo and sharing it helps just as much.
 
 ## Roadmap
 

@@ -420,13 +420,7 @@
     font-size: 1.7rem; font-weight: 800; letter-spacing: -.03em; line-height: 1.08;
   }
   .wl-modal p { font-size: .96rem; line-height: 1.55; color: var(--text-soft); }
-  .wl-modal .btn { margin-top: .5rem; width: 100%; justify-content: center; }
-  .wl-later {
-    background: none; border: 0; cursor: pointer;
-    font-family: var(--f-body); font-size: .87rem; color: var(--text-dim);
-    padding: .4rem 0; align-self: center;
-  }
-  .wl-later:hover { color: var(--text-soft); }
+  .wl-modal .btn { margin-top: .75rem; width: 100%; justify-content: center; }
 
   button.wl-open { cursor: pointer; font-family: var(--f-body); }
   a.wl-open { cursor: pointer; }
@@ -655,7 +649,6 @@
       <h3 id="wl-title">Be the first Reeber</h3>
       <p>Reeb is nearly ready. Leave your details and you will get the link the day it opens up, before anyone else.</p>
       <a class="btn solid" href="https://tally.so/r/44RV05">Count me in</a>
-      <button class="wl-later" id="wl-later" type="button">Maybe later</button>
     </div>
   </div>
 
@@ -767,7 +760,6 @@
   (function () {
     var wl = document.getElementById("wl");
     var closeBtn = document.getElementById("wl-close");
-    var laterBtn = document.getElementById("wl-later");
     if (!wl || !closeBtn) return;
 
     var KEY = "reeb.waitlist.dismissed";
@@ -795,7 +787,6 @@
     }
 
     closeBtn.addEventListener("click", close);
-    if (laterBtn) laterBtn.addEventListener("click", close);
     wl.addEventListener("click", function (e) { if (e.target === wl) close(); });
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && wl.dataset.open === "true") close();

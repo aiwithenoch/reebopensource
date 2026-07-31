@@ -357,26 +357,6 @@
   .note { border-radius: 16px; padding: 1.1rem 1.25rem; font-size: .93rem; margin-top: 1.75rem; background: var(--page); color: var(--text-soft); border: 1px solid var(--line); }
   .note b { color: var(--text); }
 
-  /* story */
-  .story .prose { display: flex; flex-direction: column; gap: 1.05rem; margin-top: 1.6rem; }
-  .story .prose p { font-size: 1.06rem; line-height: 1.68; color: var(--text-soft); max-width: 60ch; }
-  .story .pull {
-    font-family: var(--f-display);
-    font-size: clamp(1.25rem, 2.9vw, 1.65rem);
-    line-height: 1.32; letter-spacing: -.022em; font-weight: 750;
-    color: var(--text) !important;
-    border-left: 3px solid var(--cue-line, #B98900);
-    padding: .2rem 0 .2rem 1.15rem;
-    margin: .5rem 0;
-  }
-  @media (prefers-color-scheme: dark) { .story .pull { border-left-color: var(--cue); } }
-  :root[data-theme="dark"] .story .pull { border-left-color: var(--cue); }
-  :root[data-theme="light"] .story .pull { border-left-color: #B98900; }
-  .story .sig {
-    font-family: var(--f-mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--text-dim); margin-top: 1.9rem;
-  }
-
   .closing .cta-row { margin-top: 1.7rem; }
   /* On the light card the dark button reads; on the dark card it would vanish. */
   @media (prefers-color-scheme: dark) {
@@ -464,20 +444,6 @@
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- WHY -->
-  <section class="card plain story">
-    <p class="kicker">Why this exists</p>
-    <h2>It is text moving<br>on a screen</h2>
-    <div class="prose">
-      <p>I wanted to record a video and realised I did not have a teleprompter on my phone. So I went to the App Store, and every single one of them wanted a subscription. Monthly. To scroll my own words down a screen.</p>
-      <p>I am a creator starting out. I do not have that budget. And something about it got to me, because this is not a hard problem. Yet there I was, locked out of it, being asked to pay rent on my own script.</p>
-      <p>So I opened Claude Code and asked it to build me one. Not a mockup. A real app, on my iPhone, the same day.</p>
-      <p class="pull">The gap between "I wish this existed" and "it exists" has collapsed. Most people have not noticed yet.</p>
-      <p>Everything below is how it works. It is all open source. Take it, build your own, make it better than mine.</p>
-    </div>
-    <p class="sig">Enoch Ansong, Accra</p>
   </section>
 
   <!-- HOW IT FOLLOWS -->

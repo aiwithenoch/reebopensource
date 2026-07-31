@@ -3,13 +3,89 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Reeb — the teleprompter that scrolls when you talk</title>
-<meta name="description" content="An open source iOS teleprompter that scrolls because you're talking, not on a timer. On-device speech recognition, built-in camera, no subscription. Built with Claude Code by Enoch Ansong.">
-<meta property="og:title" content="Reeb — the teleprompter that scrolls when you talk">
-<meta property="og:description" content="Open source iOS teleprompter. Voice tracked scrolling, fully offline, no subscription. Full source and architecture write-up included.">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
+<title>Reeb — Free Teleprompter for iPhone That Follows Your Voice</title>
+<meta name="description" content="Reeb is a free, open source iPhone teleprompter that scrolls when you talk. Voice tracking runs entirely on your phone. No subscription, no account, works offline.">
+<link rel="canonical" href="https://reebopensource.vercel.app/">
+<meta name="author" content="Enoch Ansong">
 <meta name="theme-color" content="#FFC933">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Reeb">
+<meta property="og:url" content="https://reebopensource.vercel.app/">
+<meta property="og:title" content="Reeb — Free Teleprompter for iPhone That Follows Your Voice">
+<meta property="og:description" content="Open source iPhone teleprompter with voice tracked scrolling. Read and it moves, pause and it waits. Runs fully on device. No subscription, ever.">
+<meta property="og:image" content="https://reebopensource.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Reeb, the teleprompter that scrolls when you talk">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Reeb — Free Teleprompter for iPhone That Follows Your Voice">
+<meta name="twitter:description" content="Open source iPhone teleprompter with voice tracked scrolling. Runs fully on device. No subscription, ever.">
+<meta name="twitter:image" content="https://reebopensource.vercel.app/og.png">
+<meta name="twitter:creator" content="@aiwithenoch">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Reeb",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "iOS 17.0 or later",
+  "description": "A free, open source iPhone teleprompter that scrolls when you talk. Speech recognition runs entirely on device, so it works offline with no account and no subscription.",
+  "url": "https://reebopensource.vercel.app/",
+  "image": "https://reebopensource.vercel.app/og.png",
+  "license": "https://opensource.org/licenses/MIT",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": {
+    "@type": "Person",
+    "name": "Enoch Ansong",
+    "url": "https://aiwithenoch.com",
+    "sameAs": [
+      "https://github.com/aiwithenoch",
+      "https://www.youtube.com/@aiwithenoch",
+      "https://www.tiktok.com/@aiwithenoch",
+      "https://www.linkedin.com/in/blacctbwoy/",
+      "https://x.com/aiwithenoch"
+    ]
+  },
+  "featureList": [
+    "Voice tracked scrolling that follows your speech",
+    "Re-syncs automatically after mistakes or going off script",
+    "Built-in camera recorder with the script under the lens",
+    "Floating window over other apps",
+    "On-device speech recognition, works offline",
+    "Free and open source under the MIT licence"
+  ],
+  "codeRepository": "https://github.com/aiwithenoch/reebopensource"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Is Reeb really free?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. It is free, there is no subscription, no account, and no paid tier holding features back. The code is public under the MIT licence, so you can read every line, change it, or ship your own version." } },
+    { "@type": "Question", "name": "How is it different from other teleprompter apps?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Most teleprompters scroll on a timer and you chase the text. Reeb listens and moves the highlight to match what you actually said. It is the only teleprompter that is both native to iPhone and open source." } },
+    { "@type": "Question", "name": "Does it work without internet?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Completely. Both speech engines run on the phone itself, so airplane mode changes nothing. No audio, no script and no data ever leaves your device, because there is no server to send it to." } },
+    { "@type": "Question", "name": "Can I record video with the teleprompter on screen?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Reeb has its own camera, so the script sits right under the lens while it films and the finished video saves to Photos. There is also a floating window that stays on top while you use other apps." } },
+    { "@type": "Question", "name": "Is it on the App Store?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Not yet. A free App Store release is planned. For now you need a Mac to build and install it yourself, or you can join the waitlist and get the link the day it opens up." } },
+    { "@type": "Question", "name": "Do I need a Mac to use it?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Right now, yes. Apple only allows apps to be installed from the App Store, from TestFlight, or by building them yourself in Xcode on a Mac. Once Reeb reaches TestFlight or the App Store, anyone will be able to install it with a tap." } },
+    { "@type": "Question", "name": "What happens if I fumble a line or go off script?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It holds its place rather than running ahead. If you talk about something else for a while it keeps waiting, and the moment you start reading from the script again it searches for where you are and catches up within a few words." } },
+    { "@type": "Question", "name": "Which speech recognition does it use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Two engines at once. Apple's on-device recogniser streams words instantly and drives the scrolling, while open source Whisper re-checks the last few seconds in the background and corrects anything the fast engine missed." } }
+  ]
+}
+</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230A0D11'/><rect x='18' y='28' width='64' height='9' rx='4.5' fill='%23ffffff' opacity='.32'/><rect x='18' y='45' width='52' height='9' rx='4.5' fill='%23FFD426'/><rect x='18' y='62' width='58' height='9' rx='4.5' fill='%23ffffff' opacity='.85'/></svg>">
 
 <style>
@@ -367,6 +443,28 @@
   .note { border-radius: 16px; padding: 1.1rem 1.25rem; font-size: .93rem; margin-top: 1.75rem; background: var(--page); color: var(--text-soft); border: 1px solid var(--line); }
   .note b { color: var(--text); }
 
+  .faq { display: flex; flex-direction: column; gap: .55rem; margin-top: 2rem; }
+  .faq details {
+    background: var(--page); border: 1px solid var(--line); border-radius: 16px;
+    padding: 0 1.25rem;
+  }
+  .faq summary {
+    cursor: pointer; list-style: none;
+    font-family: var(--f-display); font-size: 1.02rem; font-weight: 700; letter-spacing: -.012em;
+    padding: 1.05rem 2rem 1.05rem 0; position: relative;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: "+"; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+    font-family: var(--f-mono); font-size: 1.15rem; color: var(--text-dim); line-height: 1;
+  }
+  .faq details[open] summary::after { content: "\2013"; }
+  .faq details p {
+    font-size: .95rem; line-height: 1.65; color: var(--text-soft);
+    padding-bottom: 1.15rem; max-width: 62ch;
+  }
+  .faq summary:focus-visible { outline: 2px solid var(--cue-line, #B98900); outline-offset: 2px; border-radius: 6px; }
+
   .closing .cta-row { margin-top: 1.7rem; }
 
   .support {
@@ -501,6 +599,7 @@
     </a>
     <div class="nav-links">
       <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
       <a href="https://github.com/aiwithenoch/reebopensource">GitHub</a>
       <a href="#" class="wl-open" role="button">Get notified</a>
     </div>
@@ -641,6 +740,47 @@
         <h3>The shared buffer</h3>
         <p>A rolling eight seconds of audio at 16 kHz mono, written from the audio thread and read from the main thread.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="card plain" id="faq">
+    <p class="kicker">Questions</p>
+    <h2>The things people ask</h2>
+
+    <div class="faq">
+      <details>
+        <summary>Is Reeb really free?</summary>
+        <p>Yes. It is free, there is no subscription, no account, and no paid tier holding features back. The code is public under the MIT licence, so you can read every line, change it, or ship your own version.</p>
+      </details>
+      <details>
+        <summary>How is it different from other teleprompter apps?</summary>
+        <p>Most teleprompters scroll on a timer and you chase the text. Reeb listens and moves the highlight to match what you actually said. Apps like PromptSmart and VoiceScroll do voice tracking too, but they are closed and paid. VoicePrompter is open source but runs in a browser. Reeb is the one that is native to iPhone and open source at the same time.</p>
+      </details>
+      <details>
+        <summary>Does it work without internet?</summary>
+        <p>Completely. Both speech engines run on the phone itself, so airplane mode changes nothing. No audio, no script and no data ever leaves your device, because there is no server to send it to.</p>
+      </details>
+      <details>
+        <summary>Can I record video with the teleprompter on screen?</summary>
+        <p>Yes. Reeb has its own camera, so the script sits right under the lens while it films and the finished video saves to Photos. There is also a floating window that stays on top while you use other apps.</p>
+      </details>
+      <details>
+        <summary>Is it on the App Store?</summary>
+        <p>Not yet. A free App Store release is planned. For now you need a Mac to build and install it yourself, or you can join the waitlist and get the link the day it opens up.</p>
+      </details>
+      <details>
+        <summary>Do I need a Mac to use it?</summary>
+        <p>Right now, yes. Apple only allows apps to be installed from the App Store, from TestFlight, or by building them yourself in Xcode on a Mac. Once Reeb reaches TestFlight or the App Store, anyone will be able to install it with a tap.</p>
+      </details>
+      <details>
+        <summary>What happens if I fumble a line or go off script?</summary>
+        <p>It holds its place rather than running ahead. If you talk about something else for a while, it keeps waiting, and the moment you start reading from the script again it searches for where you are and catches up within a few words.</p>
+      </details>
+      <details>
+        <summary>Which speech recognition does it use?</summary>
+        <p>Two engines at once. Apple's on-device recogniser streams words instantly and drives the scrolling, while open source Whisper re-checks the last few seconds in the background and corrects anything the fast engine missed.</p>
+      </details>
     </div>
   </section>
 

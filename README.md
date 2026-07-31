@@ -76,24 +76,32 @@ Reeb/
 └── SampleBufferLayerView.swift
 ```
 
-## Build it
+## Get it on your iPhone
 
-You need a Mac with Xcode, an iPhone, and a cable. **A free Apple ID is enough** — the $99 developer program is not required.
+There are two ways, depending on whether you own a Mac.
+
+### 👨‍💻 You have a Mac — build it yourself, today
+
+You need Xcode, an iPhone and a cable. **A free Apple ID is enough**, the $99 developer program is not required.
 
 ```bash
 git clone https://github.com/aiwithenoch/reebopensource.git
 cd reebopensource
-./scripts/download-model.sh
+./scripts/download-model.sh   # fetches the Whisper model (31 MB)
 open Reeb.xcodeproj
 ```
 
-Then in Xcode: select your device, set your own team under **Signing & Capabilities**, change the bundle identifier to something unique, and hit Run.
+Then set your own team and a unique bundle identifier under **Signing & Capabilities**, turn on Developer Mode on the phone, and hit Run.
 
-**One-time phone setup:** plug in and tap Trust → Xcode → Settings → Accounts → add your Apple ID → on the phone, Settings → Privacy & Security → **Developer Mode** → on → restart.
+**→ [Full step-by-step guide in BUILD.md](BUILD.md)** — written for someone who has never opened Xcode, including every error you might hit and how to fix it.
 
-### Heads up: the day-8 surprise
+Two things that trip people up: you must change the bundle identifier to your own, and apps signed with a free Apple ID **stop opening after 7 days** (plug in, press ⌘R, back in 30 seconds).
 
-Apps signed with a free Apple ID **stop opening after 7 days**. Nothing is broken — plug the phone in and reinstall (about 30 seconds). A paid developer account extends this to a year.
+### 📱 No Mac — join the waitlist
+
+Apple only allows installs from Xcode, TestFlight or the App Store, so without a Mac there is nothing to download yet. A free TestFlight build is planned, which will make it a two-tap install for anyone.
+
+**→ [Join the waitlist](https://tally.so/r/44RV05)** and you get the link the day it opens.
 
 ## Requirements
 

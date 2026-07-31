@@ -10,6 +10,18 @@ Built with [Claude Code](https://claude.com/claude-code) in an afternoon. Open s
 
 ---
 
+## Status: fully functional, not production ready
+
+Read this before you build it.
+
+Reeb works. I use it to record my own videos. But it was built fast, it has not been through App Store review, it has no test suite, and it has only ever run on one device (an iPhone 14, iOS 26). Expect rough edges. Voice tracking can lose you in a noisy room. The floating window behaves differently across iOS versions. Long scripts have not been stress tested.
+
+**If you download and build this, you do so at your own risk.** There is no warranty of any kind, as spelled out in the [LICENSE](LICENSE). It touches your microphone, your camera and your photo library, so read the source before you run it. That is exactly why it is open.
+
+I am actively improving it, and a free App Store release is planned. **Contributors are very welcome.** See [Contributing](#contributing) below.
+
+---
+
 ## What it does
 
 - **Voice-tracked scrolling** — the highlighted word follows your actual speech
@@ -83,6 +95,24 @@ Apps signed with a free Apple ID **stop opening after 7 days**. Nothing is broke
 ## Prompts
 
 The exact prompts used to build this — typos and all — are in [PROMPTS.md](PROMPTS.md). They're unedited on purpose: you don't need clean prompts, you need clear intent and honest feedback about what's broken.
+
+## Contributing
+
+Contributions are genuinely wanted, whether that is a fix, a feature, better docs, or just a bug report from a device I do not own.
+
+**Reporting something broken** is as useful as code. Open an issue with your iPhone model, iOS version, what you did, and what happened instead. "Voice tracking stopped after about a minute on an iPhone 12" is a great issue.
+
+**Sending code:** fork the repo, make your change, and open a pull request explaining what it fixes and how you tested it on a real device. Keep pull requests focused on one thing. Match the existing style: plain SwiftUI, no new dependencies unless there is a strong reason, comments only where the code cannot explain itself.
+
+**Good places to start**, roughly easiest first:
+
+- Adjustable overlay position, size and opacity in the recorder
+- A countdown before recording starts
+- Import scripts from Files, Notes or the clipboard
+- Landscape support for the prompter
+- Larger Whisper models as an option for users who want accuracy over speed
+- Multi-language recognition (the matcher normalizes with `isLetter`/`isNumber`, so it needs work for non-Latin scripts)
+- Tests for the word matcher in `SpeechTracker.swift`, which is the piece most worth protecting
 
 ## Roadmap
 

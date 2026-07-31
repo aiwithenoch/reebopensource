@@ -1,0 +1,19 @@
+# Whisper model — downloaded by scripts/download-model.sh (31 MB)
+Reeb/ggml-tiny.en-q5_1.bin
+
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcworkspace/xcuserdata/
+Reeb.xcodeproj/project.xcworkspace/
+Reeb.xcodeproj/xcuserdata/
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Packages/
+
+# macOS
+.DS_Store

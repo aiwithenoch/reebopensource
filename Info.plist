@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>Reeb</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Reeb records your videos with the teleprompter on screen.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Reeb saves your finished videos to your Photos library.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Reeb listens to your voice so the teleprompter can follow along as you read your script.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Reeb uses on-device speech recognition to track where you are in your script. Nothing leaves your phone.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
+	<key>UILaunchScreen</key>
+	<dict/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+</dict>
+</plist>

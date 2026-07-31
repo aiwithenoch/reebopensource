@@ -443,6 +443,18 @@
   .note { border-radius: 16px; padding: 1.1rem 1.25rem; font-size: .93rem; margin-top: 1.75rem; background: var(--page); color: var(--text-soft); border: 1px solid var(--line); }
   .note b { color: var(--text); }
 
+  .promises { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--gap); margin-top: 2.1rem; }
+  .promise {
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 18px; padding: 1.3rem 1.35rem;
+    display: flex; flex-direction: column; gap: .55rem;
+  }
+  .promise .no {
+    font-family: var(--f-display); font-size: 1.02rem; font-weight: 750; letter-spacing: -.015em;
+    color: var(--cue);
+  }
+  .promise p { font-size: .93rem; line-height: 1.6; color: #AAB5C0; }
+
   .faq { display: flex; flex-direction: column; gap: .55rem; margin-top: 2rem; }
   .faq details {
     background: var(--page); border: 1px solid var(--line); border-radius: 16px;
@@ -739,6 +751,32 @@
         <span class="file">AudioRingStore.swift</span>
         <h3>The shared buffer</h3>
         <p>A rolling eight seconds of audio at 16 kHz mono, written from the audio thread and read from the main thread.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUARANTEES -->
+  <section class="card dark" id="promises">
+    <p class="kicker">Why open source matters here</p>
+    <h2>Four things that<br>cannot happen to you</h2>
+    <p class="lede">Teleprompter apps have a habit of changing the deal after you have built a workflow on them. People pay once, then get moved onto a subscription. Features move behind a higher tier. Scripts sync to a server by default. None of that is possible here, and not because of a promise.</p>
+
+    <div class="promises">
+      <div class="promise">
+        <span class="no">It cannot start charging you</span>
+        <p>Reeb is MIT licensed. Even if a future version went paid, the free version stays free and anyone can keep building it. There is no switch to flip.</p>
+      </div>
+      <div class="promise">
+        <span class="no">It cannot take features away</span>
+        <p>Nothing sits behind a tier, because there are no tiers. The whole app is in the repository, so a feature cannot be moved somewhere you have to pay for.</p>
+      </div>
+      <div class="promise">
+        <span class="no">It cannot upload your script</span>
+        <p>Not a setting you switch off. There is no server, no account and no network code. Your script and your voice physically cannot leave the phone.</p>
+      </div>
+      <div class="promise">
+        <span class="no">It cannot disappear</span>
+        <p>If I stop working on it tomorrow, the code is still public and still yours. Apps that shut down take your workflow with them. This one cannot.</p>
       </div>
     </div>
   </section>
